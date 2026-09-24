@@ -28,19 +28,15 @@ MAPPING_FILE = "config/mapping.csv"
 st.subheader("SQL Server Status")
 
 try:
-    
     from etl_database import get_connection
-    
     connection = get_connection()
     connection.close()
-    
     st.success("SQL Server Connected")
-    
-except Exception as error:
-    st.error("SQL Server Connection Failed")
-    st.exception(error)
-    st.stop()
-    
+    database_available = True
+
+except Exception:
+    st.warning("SQL Server is not connected. Running in Demo Mode.")
+    database_available = False
 
 # CSV UPLOAD
 
